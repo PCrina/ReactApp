@@ -67,10 +67,31 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
+  //const numPizzas = [];
   return (
     <main className="menu">
       <h2>Our daily menu:</h2>
-      <Pizza
+
+      {/* condition operator condition && output*
+      {numPizzas >0  && ( */}
+      {numPizzas > 0 ? (
+        // <React.Fragment>
+        <>
+          <p>Authentic Italian cuisine.</p>
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        // </React.Fragment>
+        <p>Please come back later</p>
+      )}
+
+      {/*<Pizza
         name="Pizza Spinaci"
         ingredients="Tomato,mozarella,spinaci"
         photoName="pizzas/spinaci.jpg"
@@ -81,22 +102,26 @@ function Menu() {
         ingredients="Tomato,mashrooms"
         price={12}
         photoName="pizzas/funghi.jpg"
-      />
+  />*/}
     </main>
   );
 }
 
-function Pizza(props) {
-  console.log(props);
+function Pizza({ pizzaObj }) {
+  //console.log(props);
+  // multiple returns
+  //if (pizzaObj.soldOut) return null;
+
   return (
-    <div className="pizza">
-      <img src={props.photoName} alt={props.name} />
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h1>{props.name}</h1>
+        <h1>{pizzaObj.name}</h1>
         <b>Ingredients:</b>
-        {props.ingredients}
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -108,8 +133,26 @@ function Footer() {
   console.log(isOpen);
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}. We are currently open!
+      {isOpen ? (
+        <Order closeHour={closeHour} openHour={openHour} />
+      ) : (
+        <p>
+          We're Open between {openHour}:00 and {closeHour}:00
+        </p>
+      )}
+      {/* {new Date().toLocaleTimeString()}. We are currently open! */}
     </footer>
+  );
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We are open from {openHour}:00 until {closeHour}:00!
+      </p>
+      <btn className="btn">Order</btn>
+    </div>
   );
 }
 
