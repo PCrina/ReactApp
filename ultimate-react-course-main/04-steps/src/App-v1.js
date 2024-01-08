@@ -31,16 +31,23 @@ function App() {
             <div className={step >= 3 ? "active" : ""}>3</div>
           </div>
 
-          <StepMessage step={step}>{messages[step - 1]}</StepMessage>
+          <p className="message">
+            Step {step} : {messages[step - 1]}
+          </p>
 
           <div className="buttons">
-            <Button textColor="#fff" bgColor="#7950f2" onClick={handlePrevious}>
-              <span>⏮</span>Previous
-            </Button>
-
-            <Button textColor="#fff" bgColor="#7950f2" onClick={handleNext}>
-              <span>⏭</span>Next
-            </Button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handleNext}
+            >
+              Next
+            </button>
           </div>
         </div>
       )}
@@ -49,24 +56,4 @@ function App() {
   );
 }
 
-//use Children props
-function Button({ textColor, bgColor, onClick, children }) {
-  return (
-    <button
-      style={{ backgroundColor: bgColor, color: textColor }}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
-function StepMessage({ step, children }) {
-  return (
-    <div className="message">
-      <h3>Step {step}</h3>
-      {children}
-    </div>
-  );
-}
 export default App;
