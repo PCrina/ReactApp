@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.box {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  background-color: #f7f7f7;
+}
+
+.expanderBox {
+  padding: 10px;
+}
+
+.button {
+  background: none;
+  border: none;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 6px;
+}
