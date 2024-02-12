@@ -11,7 +11,6 @@ import WatchedList from "./WatchedList";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import MovieDetails from "./MovieDetails";
-import useLocalStorageState from "./useLocalStorageState";
 
 const tempMovieData = [
   {
@@ -63,21 +62,13 @@ const tempWatchedData = [
 const KEY = "ba5e28aa";
 
 export default function App() {
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState("interstellar");
   const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-
-  //state using a custom hook
-  const [watched, setWatched] = useLocalStorageState([], "watched");
-
-  //const [watched, setWatched] = useState([]);
-  //to get watched movie from local storage and displayed always
-  // const [watched, setWatched] = useState(function () {
-  //   const storedValue = localStorage.getItem("watched");
-  //   return JSON.parse(storedValue);
-  // });
+  // const tempQuery = "interstellar";
 
   /*//dependency array
   useEffect(function () {
@@ -107,9 +98,6 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-
-    //use local storage to store the watched movie and do not disappear when reload the page
-    //localStorage.setItem("watched",JSON.stringify([...watched,movie]));
   }
 
   function handleDeleteWatched(id) {
@@ -138,7 +126,7 @@ export default function App() {
           setMovies(data.Search);
           setError("");
         } catch (err) {
-          //console.error(err.message);
+          console.error(err.message);
           if (err.name !== "AbortError") {
             setError(err.message);
           }
